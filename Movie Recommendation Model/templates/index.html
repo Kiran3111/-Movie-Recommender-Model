@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename='movies.ico') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div class="card">
+      <form action="/movie" method="get">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" />
+                <h2>Movie Recommender</h2>
+                <h3>Select the category for the movies</h3>
+                <label class="dropdown">
+
+                  <div class="dd-button">
+                    Select Category
+                  </div>
+                
+                  <input type="checkbox" class="dd-input" id="test">
+                
+                  <ul class="dd-menu">
+                    <li>Genre Based Movies</li>
+                    <li>Actor Based Movies</li>
+                    <li>Similar Movies</li>
+                  </ul>
+                  <input type="hidden" id="category" name="category" value="none">
+                  
+                </label>
+                <button  type="button" onclick="gotoSlide(1)">Next</button>
+              </div>
+              <div class="swiper-slide">
+                <div className="image-wrapper">
+                  <img src="{{ url_for('static', filename='images/logo2.png') }}" />
+                </div>
+                <h2>Enter Movie Description</h2>
+                <h3 id="putCategory"></h3>
+                <input
+                  oninput="checkValid(event)"
+                  type="text"
+                  name="category_value"
+                  id="no"
+                />
+                <button  type="submit" id="submit">
+                  Next
+                </button>
+              </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <p id="copyright">COPYRIGHT © 2024 Kiran Bijja</p>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

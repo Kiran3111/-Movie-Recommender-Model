@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommender</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/liststyle.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='movies.ico') }}"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <body>
+    <h1>Showing top {{movie_ret_count}} results for `<u>{{users_movie}}</u>`</h1>
+    
+    {% if recommended_movies %} {% for movie in recommended_movies %}
+    <div id="my-modal" class="modal b{{ movie.id }}">
+      <div class="modal-content">
+        <div class="modal-body">
+              <iframe width="700" height="394" src="{{ movie.trailer }}"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  id = "trailer">
+              </iframe>
+          </div>
+      </div>
+    </div>
+    {% endfor %} {% endif %}
+    <h3>You're all good to go</h3>
+    <div class="card">
+      <form action="/">
+        {% if error %}
+        <p style="color: red">{{ error }}</p>
+        {% endif %}
+        {% if recommended_movies %} {% for movie in recommended_movies %}
+        <div class="movielist">
+          <div class="movie-box">
+              <img
+              class="movie-poster"
+              src="{{ movie.poster }}"
+              alt="{{ movie.title }}"
+              title="{{ movie.title }}"
+            />
+            <div class="description">
+              <div class="movie-title">{{ movie.title }}</div>
+              <div class="movie-year liner">
+                Year - {{ movie.release_date[-4:] }}
+              </div>
+              <br />
+              <div class="movie-description">{{ movie.description }}</div>
+              <ul>
+                <li>Director - {{ movie.director }}</li>
+                <li>Genre - {{ movie.genre }}</li>
+                <li>Cast - {{ movie.cast }}</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <button class="modal-btn" name="{{ movie.id }}"><i class="fa-solid fa-film"></i> View Trailer</button>
+              <br>
+              <button class="similar" name="{{ movie.title }}"><i class="fa-regular fa-eye"></i> View Similar</button>
+              <br>
+              <button class="download" name="{{ movie.title }}"><i class="fa-solid fa-download"></i> Download</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+        <button class="last" type="submit">Back</button>
+      </form>
+    </div>
+    <p id="copyright">COPYRIGHT © 2024 Kiran Bijja</p>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/list.js') }}"></script>
+  </body>
+</html>
